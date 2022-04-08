@@ -9,19 +9,19 @@ let page = await context.newPage();
 async function signin(): Promise<boolean> {
     console.log("Signing in")
 
-    await page.goto('https://www.myworkday.com/bentley/d/home.htmld'); 
+    await page.goto('https://www.myworkday.com/bentley/d/home.htmld');
     await page.waitForSelector('text=Bentley Faculty, Staff and Students');
-    
+
     await page.click('text=Bentley Faculty, Staff and Students');
 
     await page.waitForSelector('text=Sign In');
-    
+
     let username = process.env.USER;
     let password = process.env.PASS;
 
-    if(username && password) {  
+    if (username && password) {
         await page.type('input[type=email]', username);
-        
+
         await page.click("input[type=submit]");
 
         await page.type('input[type=password]', password);
@@ -34,13 +34,13 @@ async function signin(): Promise<boolean> {
         return true;
     }
 
-    if(JSON.stringify(await page.$$("div[role=heading]")) != "[]") {
+    if (JSON.stringify(await page.$$("div[role=heading]")) != "[]") {
         console.log("Manual intervention required");
     }
 
-    await page.waitForURL("https://www.myworkday.com/bentley/login-saml.htmld", { timeout: 120000})
+    await page.waitForURL("https://www.myworkday.com/bentley/login-saml.htmld", { timeout: 120000 })
 
-    if(page.url() == "https://www.myworkday.com/bentley/login-saml.htmld") {
+    if (page.url() == "https://www.myworkday.com/bentley/login-saml.htmld") {
         console.log("Login Success");
         return false;
     }
@@ -62,18 +62,18 @@ async function goToPage(): Promise<boolean> {
 
     await page.click("div[data-uxi-multiselectlistitem-index='1']")
 
-    await page.click("text='"+process.env.COURSE+"'")
+    await page.click("text='" + process.env.COURSE + "'")
 
     await page.waitForTimeout(100)
 
     await page.click("button[title='OK']")
 
     let urlRegex = /\/bentley\/d\/gateway\.htmld/g
-    await page.waitForURL(urlRegex, { timeout: 4000})
-    .then(() => {
-        console.log("Got to registration page");
-        err = false
-    })
+    await page.waitForURL(urlRegex, { timeout: 4000 })
+        .then(() => {
+            console.log("Got to registration page");
+            err = false
+        })
 
     return err
 }
@@ -81,7 +81,7 @@ async function goToPage(): Promise<boolean> {
 async function monitor(): Promise<string> {
     let registerButton = await page.$$("text='Start Registration'")
 
-    if(JSON.stringify(registerButton) != "[]"){
+    if (JSON.stringify(registerButton) != "[]") {
         console.log("Registration open... Registering")
         await page.click("text='Start Registration'")
 
@@ -90,7 +90,7 @@ async function monitor(): Promise<string> {
 
         await page.waitForLoadState("domcontentloaded")
 
-        if(await page.$$("text=Unsuccessful Registrations") != []){
+        if (JSON.stringify(await page.$$("text=Unsuccessful Registrations")) != "[]") {
             console.log("Complete registration failed");
             return "fail";
         } else {
@@ -111,8 +111,8 @@ async function monitor(): Promise<string> {
     err = await goToPage()
     if (err) return
     let res = await monitor()
-    
-    switch (res){
+
+    switch (res) {
         case "success":
             console.log("Registration successful");
             break;
@@ -126,5 +126,4 @@ async function monitor(): Promise<string> {
             }
             break;
     }
-
 })();

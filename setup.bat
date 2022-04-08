@@ -1,0 +1,1 @@
+IF EXIST .env (move .env dist)

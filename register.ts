@@ -62,7 +62,7 @@ async function goToPage(): Promise<boolean> {
 
     await page.click("div[data-uxi-multiselectlistitem-index='1']")
 
-    await page.click("text='2022 Fall Semester(09/06/2022-12/20/2022)'")
+    await page.click("text='"+process.env.COURSE+"'")
 
     await page.waitForTimeout(100)
 

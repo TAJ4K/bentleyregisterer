@@ -34,8 +34,7 @@ async function signin(): Promise<boolean> {
         return true;
     }
 
-
-    if(await page.$$("text='Verify Your Identity'")) {
+    if(JSON.stringify(await page.$$("div[role=heading]")) != "[]") {
         console.log("Manual intervention required");
     }
 
@@ -49,51 +48,59 @@ async function signin(): Promise<boolean> {
 }
 
 async function goToPage(): Promise<boolean> {
-    await page.click("text=Academics");
+    let err = true;
+
+    await page.click("text='Academics'");
 
     await page.click("text='More (3)'");
 
     await page.click("text='View My Saved Schedules'")
 
-    await page.waitForSelector("text='Start Date within'");
+    await page.waitForSelector("input[dir='ltr']");
 
-    await page.click("div[dir=ltr]")
+    await page.click("input[dir='ltr']")
 
-    await page.click("text=All")
+    await page.click("div[data-uxi-multiselectlistitem-index='1']")
 
     await page.click("text='2022 Fall Semester(09/06/2022-12/20/2022)'")
 
-    await page.click("text=OK")
+    await page.waitForTimeout(100)
 
-    if(page.url().includes("/bentley/d/gateway.htmld")) {
+    await page.click("button[title='OK']")
+
+    let urlRegex = /\/bentley\/d\/gateway\.htmld/g
+    await page.waitForURL(urlRegex, { timeout: 4000})
+    .then(() => {
         console.log("Got to registration page");
-        return false;
-    }
-    return true;
+        err = false
+    })
+
+    return err
 }
 
 async function monitor(): Promise<string> {
-    if(await page.$("[text='Start Registration']")) {
-        console.log("Registration open... Registering")
-        await page.click("[text='Start Registration']")
+    let registerButton = await page.$$("text='Start Registration'")
 
-        await page.waitForSelector("text=Register")
-        await page.click("text=Register")
+    if(JSON.stringify(registerButton) != "[]"){
+        console.log("Registration open... Registering")
+        await page.click("text='Start Registration'")
+
+        await page.waitForTimeout(500)
+        await page.click("text='Register'")
 
         await page.waitForLoadState("domcontentloaded")
 
-        if(await page.$("text=Unsuccessful Registrations")){
+        if(await page.$$("text=Unsuccessful Registrations") != []){
             console.log("Complete registration failed");
             return "fail";
         } else {
             return "success"
         }
-        
-        
     } else {
         console.log("Registration not started");
-        await page.waitForTimeout(1200);
         await page.reload();
+        await page.waitForTimeout(1000)
+        await page.waitForSelector("span[data-automation-id=pageHeaderTitleText]")
         return "monitor"
     }
 }
@@ -104,6 +111,7 @@ async function monitor(): Promise<string> {
     err = await goToPage()
     if (err) return
     let res = await monitor()
+    
     switch (res){
         case "success":
             console.log("Registration successful");
@@ -113,6 +121,9 @@ async function monitor(): Promise<string> {
             break;
         case "monitor":
             console.log("Monitoring registration");
+            while (res == "monitor") {
+                res = await monitor()
+            }
             break;
     }
 

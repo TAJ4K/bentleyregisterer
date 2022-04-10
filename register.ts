@@ -2,6 +2,7 @@ import playwright from 'playwright';
 import dotenv from 'dotenv';
 dotenv.config();
 
+//not my favorite stuff to keep in a global context, but it works
 let browser = await playwright.chromium.launch({ headless: false });
 let context = await browser.newContext();
 let page = await context.newPage();
@@ -40,6 +41,7 @@ async function signin(): Promise<boolean> {
 
     await page.waitForURL("https://www.myworkday.com/bentley/login-saml.htmld", { timeout: 120000 })
 
+    //fluff code because i've had issues with waitForURL before
     if (page.url() == "https://www.myworkday.com/bentley/login-saml.htmld") {
         console.log("Login Success");
         return false;
@@ -82,6 +84,7 @@ async function monitor(): Promise<string> {
     let registerButton = await page.$$("text='Start Registration'")
 
     if (JSON.stringify(registerButton) != "[]") {
+        //all speculative code based off a couple images, not sure if it's correct
         console.log("Registration open... Registering")
         await page.click("text='Start Registration'")
 
@@ -97,6 +100,7 @@ async function monitor(): Promise<string> {
             return "success"
         }
     } else {
+        //refreshes and checks again
         console.log("Registration not started");
         await page.reload();
         await page.waitForTimeout(1000)
@@ -121,6 +125,7 @@ async function monitor(): Promise<string> {
             break;
         case "monitor":
             console.log("Monitoring registration");
+            //starts monitoring loop
             while (res == "monitor") {
                 res = await monitor()
             }

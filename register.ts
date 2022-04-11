@@ -110,7 +110,7 @@ async function monitor(): Promise<string> {
 
         await page.waitForLoadState("domcontentloaded")
 
-        if (JSON.stringify(await page.$$("text=Unsuccessful Registrations")) != "[]") {
+        if (JSON.stringify(await page.$$("text='Unsuccessful Registrations'")) != "[]") {
             console.log("Complete registration failed");
             return "fail";
         } else {

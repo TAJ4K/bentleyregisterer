@@ -3,9 +3,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 //not my favorite stuff to keep in a global context, but it works
-let browser = await playwright.chromium.launch({ headless: false });
-let context = await browser.newContext();
-let page = await context.newPage();
+let browser: playwright.Browser = await playwright.chromium.launch({ headless: false});
+let context: playwright.BrowserContext = await browser.newContext();
+let page: playwright.Page = await context.newPage();
 
 async function signin(): Promise<boolean> {
     console.log("Signing in")

@@ -20,20 +20,17 @@ async function signin(): Promise<boolean> {
     let username = process.env.USER;
     let password = process.env.PASS;
 
-    if (username && password) {
-        await page.type('input[type=email]', username);
+    if (!username || !password) return true
 
-        await page.click("input[type=submit]");
+    await page.type('input[type=email]', username);
 
-        await page.type('input[type=password]', password);
+    await page.click("input[type=submit]");
 
-        await page.click('input[type=submit]');
+    await page.type('input[type=password]', password);
 
-        await page.waitForTimeout(500);
-    } else {
-        console.log("No username or password");
-        return true;
-    }
+    await page.click('input[type=submit]');
+
+    await page.waitForTimeout(500);
 
     if (JSON.stringify(await page.$$("div[role=heading]")) != "[]") {
         console.log("Manual intervention required");

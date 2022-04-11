@@ -11,9 +11,9 @@ async function signin(): Promise<boolean> {
     console.log("Signing in")
 
     await page.goto('https://www.myworkday.com/bentley/d/home.htmld');
-    await page.waitForSelector('text=Bentley Faculty, Staff and Students');
+    await page.waitForSelector("text='Bentley Faculty, Staff and Students'");
 
-    await page.click('text=Bentley Faculty, Staff and Students');
+    await page.click("text='Bentley Faculty, Staff and Students'");
 
     await page.waitForSelector('text=Sign In');
 
@@ -60,18 +60,35 @@ async function goToPage(): Promise<boolean> {
 
     await page.waitForSelector("input[dir='ltr']");
 
-    await page.click("input[dir='ltr']")
+    await page.click("input[dir='ltr']", { delay: 500 })
 
-    await page.click("div[data-uxi-multiselectlistitem-index='1']")
+    await page.click("div[data-uxi-multiselectlistitem-index='1']", { delay: 500 })
 
-    await page.click("text='" + process.env.COURSE + "'")
+    let course = process.env.COURSE
+    if (!course) return err
 
-    await page.waitForTimeout(100)
+    if (course == "latest") {
+        await page.waitForSelector("div[role=listbox]>div")
+        let parent = await page.$$("div[role=listbox]>div>div")
+
+        let last = await parent[parent.length - 1].textContent()
+        let secondLast = await parent[parent.length - 2].textContent()
+        // added + 1 to account for nth-child indexing starting at 1, it makes more sense in my head
+        if (secondLast?.substring(0, 5) == last?.substring(0, 5)) {
+            await page.click(`div[role=listbox]>div>div:nth-child(${parent.length - 2 + 1})`, { delay: 500 })
+        } else {
+            await page.click(`div[role=listbox]>div>div:nth-child(${parent.length - 1 + 1})`, { delay: 500 })
+        }
+    } else {
+        await page.click("text='" + course + "'")
+    }
+
+    await page.waitForTimeout(500)
 
     await page.click("button[title='OK']")
 
     let urlRegex = /\/bentley\/d\/gateway\.htmld/g
-    await page.waitForURL(urlRegex, { timeout: 4000 })
+    await page.waitForURL(urlRegex, { timeout: 99000 })
         .then(() => {
             console.log("Got to registration page");
             err = false

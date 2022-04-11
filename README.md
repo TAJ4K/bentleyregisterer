@@ -5,7 +5,7 @@ Step 1: Install node/npm/typescript\
 Step 2: clone git repo\
 Step 3: npm install\
 Step 4: fill out .env.example and change to .env\
-Step 5: make sure the COURSE is correct (it's on workday). Alternatively just put "latest" and hope the script works fine\
+Step 5: make sure the COURSE is correct (it's on workday). Alternatively just put "latest"\
 Step 6: npm run bns\
 Step 7: gogogo!
 

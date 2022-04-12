@@ -102,7 +102,7 @@ async function monitor(): Promise<string> {
         console.log("Registration open... Registering")
         await page.click("text='Start Registration'")
 
-        await page.waitForTimeout(500)
+        await page.waitForSelector("text='Register'")
         await page.click("text='Register'")
 
         await page.waitForLoadState("domcontentloaded")

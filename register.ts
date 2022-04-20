@@ -194,6 +194,9 @@ const launch = () => {
   if (username == undefined || password == undefined || course == undefined)
     return;
 
+  if (username == "" || password == "" || course == "") 
+    return;
+
   const script = new Script(username, password, course);
   script.run();
 };

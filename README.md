@@ -11,3 +11,11 @@ Step 7: gogogo!
 
 ## Bentley University 
 this is free open source software that honestly is not good and doesn't provide much benefit so don't come after me.
+
+## Does it work?
+To my knowledge these are the stats
+| Semester     | Attempted Courses | Success Rate | Number of Users | Notes          |
+|--------------|-------------------|--------------|-----------------|----------------|
+| Summer A '22 | 0                 | N/A          | N/A             |                |
+| Summer B '22 | 3                 | 100%         | 1               | Test session   |
+| Fall '22     | 9                 | 100%         | 2               | Got a 1/1 seat |

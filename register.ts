@@ -87,11 +87,11 @@ class Script {
       let semesters: string[] = [];
       for (let i = 0; i < parent.length; i++) {
         let text = await this.page.evaluate((el) => el.textContent, parent[i]);
-        if (text != null) {
-          semesters.push(text);
-        }
+        if (text != null) semesters.push(text);
       }
 
+      //Array.prototype.reverse() modifies the given array and returns a pointer back to it
+      //Have to duplicate the array in order to keep the originial intact
       let reversed = semesters.map((x) => x);
       reversed.reverse();
 
@@ -194,8 +194,7 @@ const launch = () => {
   if (username == undefined || password == undefined || course == undefined)
     return;
 
-  if (username == "" || password == "" || course == "") 
-    return;
+  if (username == "" || password == "" || course == "") return;
 
   const script = new Script(username, password, course);
   script.run();

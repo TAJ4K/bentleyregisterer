@@ -66,7 +66,7 @@ class Script {
   private async goToPage(): Promise<boolean> {
     let err = true;
 
-    await this.page.click("text='Academics'");
+    await this.page.click("button[aria-label='Academics']");
 
     await this.page.click("text='More (3)'");
 

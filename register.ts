@@ -130,7 +130,6 @@ class Script {
     const registerButton = await this.page.$$("text='Start Registration'");
 
     if (JSON.stringify(registerButton) != "[]") {
-      //all speculative code based off a couple images, not sure if it's correct
       console.log("Registration open... Registering");
       await this.page.click("text='Start Registration'");
 

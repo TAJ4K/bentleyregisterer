@@ -20,3 +20,4 @@ To my knowledge these are the stats
 | Summer B '22 | 3                 | 100%         | 1               | Test session   |
 | Fall '22     | 9                 | 100%         | 2               | Got a 1/1 seat |
 | Spring '23   | 10                | 100%         | 2               | Got a 1/1 seat |
+| Fall '23     | 10                | 100%         | 2               |                |

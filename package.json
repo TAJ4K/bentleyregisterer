@@ -9,7 +9,7 @@
     "build": "npx tsc",
     "start": "node dist/register.js",
     "prestart": "npm run build && npm run move-env",
-    "move-env": "if exist .env move .env dist",
+    "move-env": "test -f .env && mv .env dist || true",
     "bns": "npm run prestart && npm run start"
   },  
   "author": "",

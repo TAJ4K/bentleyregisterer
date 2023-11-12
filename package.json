@@ -7,9 +7,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "cd dist && node register.js",
-    "bns": "npm run build && setup.bat && npm run start"
-  },
+    "start": "node dist/register.js",
+    "prestart": "npm run build && npm run move-env",
+    "move-env": "if exist .env move .env dist",
+    "bns": "npm run prestart && npm run start"
+  },  
   "author": "",
   "license": "ISC",
   "dependencies": {

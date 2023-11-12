@@ -1,6 +1,6 @@
 import playwright from "playwright";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config({ path: "./dist/.env" });
 
 class Script {
   private browser!: playwright.Browser;
@@ -186,14 +186,14 @@ class Script {
 }
 
 const launch = () => {
-  let username = process.env.USER;
+  let username = process.env.EMAIL;
   let password = process.env.PASS;
   let course = process.env.COURSE;
 
-  if (username == undefined || password == undefined || course == undefined)
+  if (!username || !password || !course) {
+    console.log("Missing or empty environment variables, please check .env");
     return;
-
-  if (username == "" || password == "" || course == "") return;
+  }
 
   const script = new Script(username, password, course);
   script.run();

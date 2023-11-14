@@ -16,7 +16,7 @@ class Script {
     this.course = course;
   }
 
-  private async init() {
+  private async init(): Promise<void> {
     this.browser = await playwright.chromium.launch({ headless: false });
     this.context = await this.browser.newContext();
     this.page = await this.context.newPage();
@@ -53,7 +53,7 @@ class Script {
       { timeout: 120000 }
     );
 
-    //fluff code because i've had issues with waitForURL before
+    // fluff code because i've had issues with waitForURL before
     if (
       this.page.url() == "https://www.myworkday.com/bentley/login-saml.htmld"
     ) {
@@ -160,7 +160,7 @@ class Script {
     }
   }
 
-  public async run() {
+  public async run(): Promise<void> {
     await this.init();
     let err = await this.signin();
     if (err) return;

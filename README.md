@@ -21,4 +21,4 @@ To my knowledge these are the stats
 | Fall '22     | 9                 | 100%         | 2               | Got a 1/1 seat |
 | Spring '23   | 10                | 100%         | 2               | Got a 1/1 seat |
 | Fall '23     | 10                | 100%         | 2               |                |
-| Spring '24   | 5                 | 100%         | 2               | Got 1/3 & 1/2 seat |
+| Spring '24   | 9                 | 100%         | 2               | Got 1/3 & 1/2 seat |

@@ -80,7 +80,7 @@ class Script {
       delay: 500,
     });
 
-    if (this.course == "latest") {
+    if (this.course == "latest") { // Untested
       await this.page.waitForSelector("div[role=listbox]>div");
       const parent = await this.page.$$("div[role=listbox]>div>div");
 
@@ -106,6 +106,33 @@ class Script {
               { delay: 500 }
             );
             break;
+          } else if (reversed[i].substring(0, 5) == reversed[i + 1].substring(0, 5)) {
+            switch (reversed[i].substring(5, 7)) {
+              case "Sp": // Should never happen
+                break;
+              case "Fa":
+                let index = semesters.indexOf(reversed[i]);
+                await this.page.click(
+                  `div[role=listbox]>div>div:nth-child(${index + 1})`,
+                  { delay: 500 }
+                );
+                break;
+              case "Su":
+                if (reversed[i + 1].substring(5, 7) == "Fa") {
+                  let index = semesters.indexOf(reversed[i + 1]);
+                  await this.page.click(
+                    `div[role=listbox]>div>div:nth-child(${index + 1})`,
+                    { delay: 500 }
+                  );
+                } else {
+                  let index = semesters.indexOf(reversed[i]);
+                  await this.page.click(
+                    `div[role=listbox]>div>div:nth-child(${index + 1})`,
+                    { delay: 500 }
+                  );
+                }
+                break;
+            }
           }
         }
       }

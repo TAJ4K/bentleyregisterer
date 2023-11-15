@@ -23,4 +23,4 @@ To my knowledge these are the stats
 | Spring '23   | 10                | 100%         | 2               | Got a 1/1 seat |
 | Summer '23   | N/A               | N/A          | N/A             |                |
 | Fall '23     | 10                | 100%         | 2               |                |
-| Spring '24   | 9                 | 100%         | 1 (I ran 5 people) | Got 1/3 & 1/2 seat |
+| Spring '24   | 29                 | 93%         | 1 (I ran 5 people) | Got 1/3 & 1/2 seat |

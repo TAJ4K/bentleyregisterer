@@ -23,4 +23,5 @@ To my knowledge these are the stats
 | Spring '23   | 10                | 100%         | 2               | Got a 1/1 seat |
 | Summer '23   | N/A               | N/A          | N/A             |                |
 | Fall '23     | 10                | 100%         | 2               |                |
-| Spring '24   | 24                 | 91.7%         | 1 (I ran 5 people) | Got 1/3 & 1/2 seat, had wifi been faster wouldve gotten 100%|
+| Spring '24   | 24                | 91.7%        | 1 (I ran 5 people) | Got 1/3 & 1/2 seat, had wifi been faster wouldve gotten 100%|
+| Fall '24     | 6                 | 100%         | 1               | Got a 1/1 seat | 
